@@ -8,10 +8,15 @@ jobs:
         python-version: [ '3.x', 'pypy-3.7' ]
     name: Python ${{ matrix.python-version }} sample
     steps:
+      - run: sudo apt-get update
+      - run: sudo apt-get install libudev-dev
+      - run: sudo apt-get install librrd-dev libpython3-dev
+      - run: sudo apt-get install gcc --only-upgrade      
       - uses: actions/checkout@v2
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
+      - run: python3 -m pip install --upgrade pip==19.3.1    
       - run: python ./python/hello_world.py
