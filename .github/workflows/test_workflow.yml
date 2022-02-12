@@ -35,6 +35,6 @@ jobs:
       - run: pip install -r smarthomeng/requirements/base.txt
       - name: Run Python Unittests
         working-directory: ./smarthomeng/tests
-        run: sh run.sh
+        run: pytest
       #- run: sh smarthomeng/tests/run.sh
       - run: python ./python/hello_world.py
