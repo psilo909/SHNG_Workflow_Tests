@@ -15,11 +15,13 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/checkout@v2
         with: 
-          repository: smarthomeNG/smarthome@develop
+          repository: smarthomeNG/smarthome
+          ref: develop
           path: smarthomeng
       - uses: actions/checkout@v2
         with: 
-          repository: smarthomeNG/plugins@develop
+          repository: smarthomeNG/plugins
+          ref: develop
           path: smarthomeng/plugins
       - name: Set up Python
         uses: actions/setup-python@v2
