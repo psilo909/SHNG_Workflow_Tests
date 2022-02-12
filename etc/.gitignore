@@ -1,0 +1,12 @@
+# ignore everything
+*
+# except .gitignore
+!.gitignore
+#!logging.yaml
+# except yaml default-files
+!holidays.yaml.default
+!logging.yaml.default
+!logic.yaml.default
+!module.yaml.default
+!plugin.yaml.default
+!smarthome.yaml.default
