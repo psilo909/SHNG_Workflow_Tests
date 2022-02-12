@@ -33,7 +33,6 @@ jobs:
       - run: pip install sphinx sphinx_rtd_theme recommonmark ruamel.yaml
       - run: python3 smarthomeng/tools/build_requirements.py
       - run: pip install -r smarthomeng/requirements/base.txt
-      - run: cd smarthomeng
       - run: pytest -V
       #- run: sh smarthomeng/tests/run.sh
       - run: python ./python/hello_world.py
