@@ -1,5 +1,7 @@
 name: "SmartHomeNG Test Workflow"
 on: workflow_dispatch
+env:
+  DEP_PATH: smarthomeng/requirements/all.txt
 jobs:
   build:
     runs-on: ubuntu-20.04 #latest
