@@ -33,9 +33,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with: 
-          repository: smarthomeNG/smarthome
-          ref: develop
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
