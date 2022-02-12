@@ -14,4 +14,4 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
           architecture: x64
-      - run: python SHNG_Workflow_Tests/python/hello_world.py
+      - run: python ./python/hello_world.py
