@@ -8,17 +8,20 @@ jobs:
         python-version: [ '3.7', '3.8', '3.9' ]
     name: Python ${{ matrix.python-version }} sample
     steps:
-      - run: sudo apt-get update
+      - name: update OS (Ubuntu) 
+        run: sudo apt-get update
       - run: sudo apt-get install libudev-dev
       - run: sudo apt-get install librrd-dev libpython3-dev
       - run: sudo apt-get install gcc --only-upgrade      
       - uses: actions/checkout@v2
-      - uses: actions/checkout@v2
+      - name: Checkout SmartHomeNG DEVELOP Branch
+        uses: actions/checkout@v2
         with: 
           repository: smarthomeNG/smarthome
           ref: develop
           path: smarthomeng
-      - uses: actions/checkout@v2
+      - name: Checkout SmartHomeNG/plugins DEVELOP Branch    
+        uses: actions/checkout@v2
         with: 
           repository: smarthomeNG/plugins
           ref: develop
@@ -31,10 +34,14 @@ jobs:
       - run: python3 -m pip install --upgrade pip #==19.3.1    
       #- run: pip install tox-travis virtualenv>=20.0.8 --upgrade
       - run: pip install sphinx sphinx_rtd_theme recommonmark ruamel.yaml pytest
-      - run: python3 smarthomeng/tools/build_requirements.py
-      - run: pip install -r smarthomeng/requirements/base.txt
+      - name: Build Requirements
+        run: python3 smarthomeng/tools/build_requirements.py
+      - name: Show requirements/base.txt
+        run: head smarthomeng/requirements/base.txt -n 12
+      - name: Show requirements/all.txt
+        run: head smarthomeng/requirements/all.txt -n 12
+      - name: Install base.txt
+        run: pip install -r smarthomeng/requirements/base.txt
       - name: Run Python Unittests
         working-directory: ./smarthomeng/tests
         run: pytest
-      #- run: sh smarthomeng/tests/run.sh
-      - run: python ./python/hello_world.py
