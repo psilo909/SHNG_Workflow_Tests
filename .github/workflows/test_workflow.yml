@@ -30,7 +30,7 @@ jobs:
           architecture: x64
       - run: python3 -m pip install --upgrade pip #==19.3.1    
       #- run: pip install tox-travis virtualenv>=20.0.8 --upgrade
-      - run: pip install sphinx sphinx_rtd_theme recommonmark ruamel.yaml
+      - run: pip install sphinx sphinx_rtd_theme recommonmark ruamel.yaml pytest
       - run: python3 smarthomeng/tools/build_requirements.py
       - run: pip install -r smarthomeng/requirements/base.txt
       - name: Run Python Unittests
