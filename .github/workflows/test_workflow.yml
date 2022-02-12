@@ -13,6 +13,14 @@ jobs:
       - run: sudo apt-get install librrd-dev libpython3-dev
       - run: sudo apt-get install gcc --only-upgrade      
       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+        with: 
+          repository: smarthomeNG/smarthome@develop
+          path: smarthomeng
+      - uses: actions/checkout@v2
+        with: 
+          repository: smarthomeNG/plugins@develop
+          path: smarthomeng
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
