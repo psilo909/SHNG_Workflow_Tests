@@ -32,6 +32,6 @@ jobs:
       #- run: pip install tox-travis virtualenv>=20.0.8 --upgrade
       - run: pip install sphinx sphinx_rtd_theme recommonmark ruamel.yaml
       - run: python3 smarthomeng/tools/build_requirements.py
-      - run: sed 's/\/'.join(os.path.realpath(__file__)/smarthomeng\/tests' smarthomeng/tests/run.sh
+      - run: sed 's/\/'.join(os.path.realpath\(__file__\)/smarthomeng\/tests' smarthomeng/tests/run.sh
       - run: sh smarthomeng/tests/run.sh
       - run: python ./python/hello_world.py
