@@ -31,5 +31,5 @@ jobs:
       - run: python3 -m pip install --upgrade pip==19.3.1    
       - run: pip install tox-travis virtualenv>=20.0.8 --upgrade
       - run: pip install sphinx sphinx_rtd_theme recommonmark
-      - run: sh ./smarthome/tests/run-tests.sh
+      - run: sh smarthome/tests/run-tests.sh
       - run: python ./python/hello_world.py
