@@ -39,8 +39,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
+         ref: smarthome
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
          ref: plugins
-
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v1
