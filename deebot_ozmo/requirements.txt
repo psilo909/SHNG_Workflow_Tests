@@ -1,0 +1,2 @@
+deebotozmo==1.7.8
+dnspython

@@ -1,0 +1,71 @@
+# Metadata for the Smart-Plugin
+plugin:
+    # Global plugin attributes
+    type: interface                 # plugin type (gateway, interface, protocol, system, web)
+    description:
+        de: 'Ansteuerung einer Siemens LOGO PLC'
+        en: 'Control of a Siemens LOGO PLC'
+    maintainer: ivande
+    tester: 'n/a'
+#    tester:                        # Who tests this plugin?
+    state: ready
+    #keywords: iot xyz
+    documentation: https://github.com/smarthomeNG/plugins/blob/develop/snap7_logo/user_doc.rst
+    support: https://knx-user-forum.de/forum/supportforen/smarthome-py/36372-plugin-siemens-logo-0ba7
+
+    version: 1.6.0                 # Plugin version
+    sh_minversion: 1.8             # minimum shNG version to use this plugin
+    multi_instance: True           # plugin supports multi instance
+    classname: snap7_logo          # class containing the plugin
+
+parameters:
+    host:
+        type: ipv4
+        description:
+            de: 'IP Adresse der anzusprechenden Siemens-Logo'
+            en: 'IP address of the Siemens-Logo to be addressed'
+
+    tsap_server:
+        type: num
+        default: 0x0200
+        description:
+            de: 'tsap_server - Dezimalzahl'
+            en: 'tsap_server - dezimal'
+
+    tsap_client:
+        type: num
+        default: 0x0100
+        description:
+            de: 'tsap_client - Dezimalzahl'
+            en: 'tsap_client - dezimal'
+
+    version:
+        type: str
+        default: '0BA7'
+        description:
+            de: 'Siemens Hardware Version 0BA7 oder 0BA8'
+            en: 'Siemens hardware version 0BA7 or 0BA8'
+        valid_list:
+            - '0BA7'
+            - '0BA8'
+
+    cycle:
+        type: num
+        default: 5
+        description:
+            de: 'Zeit (sec) nachdem eine neue Verbindung zur Logo aufgebaut wird, um Änderungen zu holen'
+            en: 'time (sec) after a new link to Logo will be established to get updates'
+
+item_attributes:
+    logo_read:
+        type: str
+        description:
+            de: 'Eingang, Ausgang, Merker von der Siemens-Logo lesen'
+            en: 'Input, Output, Mark to read from Siemens Logo'
+
+    logo_write:
+        type: str
+        description:
+            de: 'Eingang, Ausgang, Merker in die Siemens-Logo schreiben'
+            en: 'Input, Output, Mark to write from Siemens Logo'
+

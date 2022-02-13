@@ -1,0 +1,2 @@
+#requests requirement moved to core
+python-magic>=0.4.12

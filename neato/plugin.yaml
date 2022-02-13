@@ -1,0 +1,153 @@
+# Metadata for the plugin
+plugin:
+    # Global plugin attributes
+    type: interface                   # plugin type (gateway, interface, protocol, system, web)
+    description:
+        de: 'Plugin zur Anbindung von einem Neato/Vorwerk Staubsauger Robotor an SmartHomeNG'
+        en: 'Plugin to connect your Neato/Vorwerk Vacuum Robot with SmartHomeNG'
+    maintainer: Thomas Hengsberg (thengsty)
+    tester: aschwith
+    state: ready                  # change to ready when done with development
+    keywords: vorwerk, neato
+    documentation: https://github.com/smarthomeng/plugins/blob/develop/neato/README.md
+    support: https://knx-user-forum.de/forum/supportforen/smarthome-py/1417295-support-thread-plugin-neato
+
+    version: 1.6.7                  # Plugin version
+    sh_minversion: 1.8.0            # minimum shNG version to use this plugin
+#    sh_maxversion:                 # maximum shNG version to use this plugin (leave empty if latest)
+    multi_instance: False           # plugin supports multi instance
+    restartable: unknown
+    classname: Neato         # class containing the plugin
+
+parameters:
+    account_email:
+        type: str
+        mandatory: True
+        description:
+            de: 'E-Mail Adresse des Neato/Vorwerk Accounts'
+            en: 'E-Mail Adresse of your Neato/Vorwerk account'
+    account_pass:
+        type: str
+        description:
+            de: 'Kennwort des Neato/Vorwerk Accounts'
+            en: 'Password of your Neato/Vorwerk account'
+    robot_vendor:
+        type: str
+        mandatory: True
+        default: 'neato'
+        valid_list:
+          - neato
+          - vorwerk
+        valid_list_description:
+            de: ['Neato Roboter', 'Vorwerk Roboter']
+            en: ['Neato robot', 'Vorwerk robot']
+        description:
+            de: 'Hersteller des Roboters'
+            en: 'Vendor of your robot'
+    token:
+        type: str
+        description:
+            de: 'Oauth token fuer Vorwerk Login (basierend auf MyKobold Anmeldeverfahren)'
+            en: 'Oauth token obtained for Vorwerk Login (based on MyKobold interface)'
+
+item_attributes:
+    # Definition of item attributes defined by this plugin (enter 'item_attributes: NONE', if section should be empty)
+    neato_attribute:
+        type: str
+        description:
+            de: 'Neato Attributes:
+                 Name
+                 Befehl
+                 Zustand
+                 Alarm Text
+                 Zustand Aktion
+                 ist angedockt
+                 Reinigungsplan aktiv
+                 laed gerade
+                 Ladestand
+                 Nachricht
+                 fahr zur Basis
+                 reinige Einzelraum'
+            en: 'Neato attributes:
+                 name
+                 command
+                 state
+                 alarm text
+                 action state
+                 is docked to Base
+                 cleaning schedule enabled
+                 is charging
+                 charge percentage
+                 message
+                 go to base
+                 clean room'
+        valid_list:
+          - name
+          - command
+          - state
+          - alert
+          - state_action
+          - is_docked
+          - is_schedule_enabled
+          - is_charging
+          - charge_percentage
+          - message
+          - command_goToBaseAvailable
+          - clean_room
+
+item_structs: NONE
+    # Definition of item-structure templates for this plugin (enter 'item_structs: NONE', if section should be empty)
+    #item_structs: NONE
+
+plugin_functions:
+    enable_schedule:
+        type: bool
+        description:
+            de: "Aktiviert den Reinigunsplan."
+            en: "Activates cleaning schedule."
+        parameters:
+        # This function has no parameters
+    disable_schedule:
+        type: bool
+        description:
+            de: "Deaktiviert den Reinigunsplan."
+            en: "Disables cleaning schedule."
+        parameters:
+        # This function has no parameters
+    start_robot:
+        type: bool
+        description:
+            de: "Aktiviert Reinigung"
+            en: "Activates cleaning"
+        parameters:
+            boundary_id:
+                type: str
+                description:
+                    de: "Zimmer ID (ASCII hex Darstellung)"
+                    en: "Room ID (ASCII hex code)"
+            map_id:
+                type: str
+                description:
+                    de: "Karten ID"
+                    en: "Map ID"
+    dismiss_current_alert:
+        type: bool
+        description:
+            de: "Loescht aktuelle Alarme"
+            en: "Resets current alerts"
+    get_map_boundaries:
+        type: bool
+        description:
+            de: "Gibt im logfile die verfuebaren Raeume aus"
+            en: "Outputs available boundaries (rooms) in logfile"
+        parameters:
+            map_id:
+                type: str
+                description:
+                    de: "Karten ID"
+                    en: "Map ID"
+
+logic_parameters: NONE
+    # Definition of logic parameters defined by this plugin (enter 'logic_parameters: NONE', if section should be empty)
+    #logic_parameters: NONE
+

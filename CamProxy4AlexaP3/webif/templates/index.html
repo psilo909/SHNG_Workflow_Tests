@@ -1,0 +1,220 @@
+<!-- Functions in Scripts       -->
+<script src="./static/js/thread_items.js"></script>
+<!-- Functions in Scripts       -->
+{% extends "base_plugin.html" %}
+
+{% set logo_frame = false %}
+{% set use_bodytabs = true %}
+{% set tabcount = 3 %}
+{% set tab1title = 'Proxied Cameras' %}
+{% set tab2title = 'Standard TLSv1.2 Cameras' %}
+{% set tab3title = 'active Camera Thread´s' %}
+{% set tab4title = 'SSL Certificate Info´s' %}
+
+{% block headtable %}
+<table class="table table-striped table-hover">
+	<tbody>
+		<tr>
+			<td class="py-1"><strong>Proxied Cameras</strong></td>
+			<td class="py-1">{{ proxied_Cams }}</td>
+		</tr>
+		<tr>
+			<td class="py-1"><strong>Standard TLSv1.2 Cameras</strong></td>
+			<td class="py-1">{{ standard_Cams }}</td>
+		</tr>
+	</tbody>
+</table>
+{% endblock headtable %}
+
+{% block buttons %}
+{% endblock buttons %}
+
+{% set tabcount = 4 %}
+
+{% block bodytab1 %}
+<div class="table-responsive" style="margin-left: 2px; margin-right: 2px;" class="row">
+        <div class="col-sm-12">
+                        <table class="table table-striped table-hover pluginList">
+			<thead>
+				<tr>
+					<th>{{ _('Alexa-Item') }}</th>
+                        		<th style="width: 200;"><font size="-1">{{ _('Proxy-URL') }}</th>
+					<th style="width: 200;"><font size="-1">{{ 'Real-URL´s' }}</th>
+					<th><font size="-1">MB proxied total</th>
+					<th><font size="-1">last Session</th>
+					<th><font size="-1">last Session duration</th>
+					<th><font size="-1">Sessions total</th>
+					</tr>
+			</thead>
+			<tbody>
+			{% for item in items_proxied %}
+				<tr>
+
+					<td class="py-1"><font size="-1">{{ item.name }}</td>
+					<td class="py-1"><font size="-1">{{ item.proxied_Url }}</td>					
+					<td class="py-1"><font size="-1">{{ item.real_Url }}</td>					
+					<td align="right" class="py-1"><font size="-1">{{ item.proxied_mb_total }}</td>
+					<td align="right" class="py-1"><font size="-1">{{ item.last_Session }}</td>					
+					<td align="right" class="py-1"><font size="-1">{{ item.last_Session_duration }}</td>					
+					<td align="right" +class="py-1"><font size="-1">{{ item.Sessions_total }}</td>					
+					
+					
+					
+				</tr>
+			{% endfor %}
+			</tbody>
+		        </table>
+        </div>
+</div>
+{% endblock bodytab1 %}
+
+{% block bodytab2 %}
+<div class="table-responsive" style="margin-left: 2px; margin-right: 2px;" class="row">
+	<div class="col-sm-12">
+                        <table class="table table-striped table-hover pluginList">
+			<thead>
+				<tr>
+					<th>{{ _('Alexa-Item') }}</th>
+					<th style="width: 200;">{{ 'Real-URL' }}</th>
+					</tr>
+			</thead>
+			<tbody>
+			{% for item in item_tls %}
+				<tr>
+					<td class="py-1">{{ item.conf['alexa_description'] }}</td>
+					<td class="py-1">{{ item.conf['alexa_csc_uri'] }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		        </table>
+        </div>
+</div>
+{% endblock bodytab2 %}
+
+{% block bodytab3 %}
+<div class="table-responsive" style="margin-left: 2px; margin-right: 2px;" class="row">
+	<div class="col-sm-12">
+                <div class="row">
+                    <div class="col" style="max-width: 50%;">
+                        <div class="card">
+                            <div class="card-header p-1 shng_heading">
+                                <a class="float-sm-right" href="#" onclick="reloadThreads();" title="{{ _('Neu Laden', 'button') }}"><span id="refresh-element" class="fas fa-sync"></span></a>
+                                <strong>{{ _('Threads existing ...') }}</strong>
+                            </div>
+                            <div class="card-body p-1">
+                                <div class="card-text" style="">
+                                    <div id="cardOverlay" class="cardOverlay">
+                                        <div style="position: relative; top: 45%; left:45%;">
+                                            <span id="reload-element" class="fas fa-sync fa-4x"/>
+                                        </div>
+                                    </div>
+                                    <div id="threads" class="data-container refresh-data pre-scrollable" style="overflow-x: auto;">
+                                    {{ _('Threads.....') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col" style="max-width: 50%;">
+                        <div class="card" >
+                            <div class="card-header p-1 shng_heading">
+				<table>
+				<tr>
+
+				<strong align="left">{{ _('Thread-Details') }}</strong>
+
+
+
+
+
+                                <a class="float-sm-right" align="right" href="#" onclick="SelectListItem(actThreadName);" title="{{ _('Neu Laden', 'button') }}"><span id="refresh-element_details" class="fas fa-sync"></span></a>
+
+                            </tr>
+                            </table>
+			    </div>
+                            <div class="card-body p-1" style="position: relative;">
+                                <div class="card-text" style="">
+                                    <div id="cardOverlay_Details" class="cardOverlay_Details">
+                                        <div style="position: relative; top: 45%; left:45%;">
+                                            <span id="reload-element_details" class="fas fa-sync fa-4x"/>
+                                        </div>
+                                    </div>
+                                    <div id="thread_details" class="data-container refresh-data pre-scrollable" style="overflow-x: auto;">
+                                    {{ _('Details.....') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+    </div>
+</div>
+<!-- Functions in Scripts       -->
+<script type="text/javascript" language="javascript">
+
+var actThreadName;
+
+reloadThreads();
+SelectListItem(actThreadName);
+
+$('#threads').on('click', 'tr', function()
+  {
+   var value = $(this).closest('tr').find('td').first().text();
+   //alert(value);
+   actThreadName = value;
+   SelectListItem(actThreadName);
+  });
+
+
+
+</script>
+{% endblock bodytab3 %}
+
+{% block bodytab4 %}
+<div class="table-responsive" style="margin-left: 2px; margin-right: 2px;" class="row">
+	<div class="col-sm-12">
+                <table class="table table-striped table-hover">
+	                <tbody>
+		                <tr>
+			                <td class="py-1"><strong>Certificate issued for :</strong></td>
+			                <td class="py-1" style="width: 70%;">{{ cert_issued_to }}</td>
+		                </tr>
+		                <tr>
+			                <td class="py-1"><strong>Certificate issued by :</strong></td>
+			                <td class="py-1">{{ cert_issued_by }}</td>
+		                </tr>
+		                <tr>
+			                <td class="py-1"><strong>Certificate valid since :</strong></td>
+			                <td class="py-1">{{ cert_notBefore }}</td>
+		                </tr>
+                                <tr>
+			                <td class="py-1"><strong>Certificate valid till :</strong></td>
+			                <td class="py-1">{{ cert_notafter }}</td>
+		                </tr>
+                                <tr>
+			                <td class="py-1"><strong>supported Ciphers :</strong></td>
+			                <td class="py-1">{{ my_Ciphers }}</td>
+		                </tr>
+	                </tbody>
+                </table>        
+    </div>
+</div>
+{% endblock bodytab4 %}
+
+
+
+<!--        
+				<div class="custom-control custom-checkbox" align="center" >
+
+                <td class="py-1"><span style="color: {% if p.stopped %}red{% else %}green{% endif %};" class="fas {% if p.stopped %}fa-pause-circle{% else %}fa-play-circle{% endif %}"></span></td>
+-->
+<!--        -->
+
+
+					<!--
+					<td class="py-1">{{ item.conf['alexa_description'] }}</td>
+					<td class="py-1">{{ item.conf['alexa_csc_proxy_uri'] }}</td>
+					<td class="py-1">{{ item.conf['alexa_csc_uri'] }}</td>
+				        -->
